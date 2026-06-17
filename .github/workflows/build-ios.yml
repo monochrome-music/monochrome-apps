@@ -1,0 +1,47 @@
+name: Build iOS IPA
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Sync Capacitor
+        run: bunx cap sync ios
+
+      - name: Build unsigned archive
+        run: |
+          xcodebuild archive \
+            -project ios/App/App.xcodeproj \
+            -scheme App \
+            -configuration Release \
+            -destination generic/platform=iOS \
+            -archivePath "$RUNNER_TEMP/Monochrome.xcarchive" \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            SKIP_INSTALL=NO
+
+      - name: Package IPA
+        run: |
+          mkdir Payload
+          cp -r "$RUNNER_TEMP/Monochrome.xcarchive/Products/Applications/App.app" Payload/
+          zip -r Monochrome-unsigned.ipa Payload/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: monochrome-unsigned-ipa
+          path: Monochrome-unsigned.ipa
+          if-no-files-found: error

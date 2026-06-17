@@ -1,0 +1,39 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Sync Capacitor
+        run: bunx cap sync android
+
+      - name: Build unsigned APK
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease
+        working-directory: android
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: monochrome-unsigned-apk
+          path: android/app/build/outputs/apk/release/app-release-unsigned.apk
+          if-no-files-found: error
