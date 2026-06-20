@@ -7,6 +7,7 @@ const config: CapacitorConfig = {
   server: {
     url: 'https://monochrome.tf',
     allowNavigation: ['*.monochrome.tf'],
+    errorPath: 'index.html',
   },
 };
 

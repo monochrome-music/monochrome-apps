@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Monochrome</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    background: #000;
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    height: 100dvh;
+    text-align: center;
+    padding: 2rem;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 2rem;
+    opacity: 0.4;
+}
+h1 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+p {
+    font-size: 0.9rem;
+    opacity: 0.5;
+    margin-bottom: 2rem;
+    max-width: 18rem;
+    line-height: 1.5;
+}
+button {
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 0.7rem 2.5rem;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: opacity 0.2s;
+}
+button:active { opacity: 0.7; }
+</style>
+</head>
+<body>
+<svg class="icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+<path d="M0 0h24v24H0z" fill="none" />
+<path fill="none" stroke="currentColor" stroke-linecap="square" stroke-width="2" d="M2.1 9.1A13.94 13.94 0 0 1 8 5.582m8 0a13.94 13.94 0 0 1 5.9 3.52M6.697 13.697q.607-.604 1.303-1.043m8 0q.697.438 1.303 1.043M12 3v11m-.707 4.293a1 1 0 0 1 1.414 0L12 19z" />
+</svg>
+<h1>No internet connection</h1>
+<p>Check your connection and try again.</p>
+<button onclick="retry()">Retry</button>
+<script>
+function retry() {
+    if (navigator.onLine) {
+        window.location.href = 'https://monochrome.tf';
+    }
+}
+window.addEventListener('online', retry);
+</script>
+</body>
+</html>
