@@ -9,6 +9,7 @@
         "@capacitor/cli": "^8.4.0",
         "@capacitor/core": "^8.4.0",
         "@capacitor/ios": "^8.4.0",
+        "@capgo/capacitor-media-session": "^8.0.19",
       },
       "devDependencies": {
         "@types/bun": "latest",
@@ -26,6 +27,8 @@
     "@capacitor/core": ["@capacitor/core@8.4.0", "", { "dependencies": { "tslib": "^2.1.0" } }, "sha512-LrS1xPIrqLtJABBIPDGXxxKmI9OyesrzWw8DiHbxhSC9JoiLUleUAJlX1a0LWIVLRbuY4Szgf9huFeRqYH2SAQ=="],
 
     "@capacitor/ios": ["@capacitor/ios@8.4.0", "", { "peerDependencies": { "@capacitor/core": "^8.4.0" } }, "sha512-tnwstEdbTJ2nHAfoAwnurXgYRscWeLY+IIGdz69o24gN2Crfj9Xc0TWo8L5uFLF1LmpbUywH1IT0U1oHV8c+CA=="],
+
+    "@capgo/capacitor-media-session": ["@capgo/capacitor-media-session@8.0.28", "", { "peerDependencies": { "@capacitor/core": ">=8.0.0" } }, "sha512-p9hEbujYixWr//s66moL/nHd3ppeLk3yirT5VvAJvWHCTWXIqVSeL+dP12XTcpSobMQBKlC28LpIWdYvFcDyXQ=="],
 
     "@ionic/cli-framework-output": ["@ionic/cli-framework-output@2.2.8", "", { "dependencies": { "@ionic/utils-terminal": "2.3.5", "debug": "^4.0.0", "tslib": "^2.0.1" } }, "sha512-TshtaFQsovB4NWRBydbNFawql6yul7d5bMiW1WYYf17hd99V6xdDdk3vtF51bw6sLkxON3bDQpWsnUc9/hVo3g=="],
 
