@@ -41,17 +41,17 @@ public class MainActivity extends BridgeActivity {
 
         final WebView webView = bridge.getWebView();
         if (webView != null) {
+            webView.getSettings().setUserAgentString(
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            );
             final WebViewClient originalClient = webView.getWebViewClient();
             webView.setWebViewClient(new WebViewClient() {
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                     Uri url = request.getUrl();
                     String host = url.getHost();
-                    if (host != null && isOAuthDomain(host) && !host.endsWith(".monochrome.tf") && !host.equals("monochrome.tf")) {
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, url);
-                        browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        view.getContext().startActivity(browserIntent);
-                        return true;
+                    if (host != null && isOAuthDomain(host)) {
+                        return false;
                     }
                     return originalClient.shouldOverrideUrlLoading(view, request);
                 }
