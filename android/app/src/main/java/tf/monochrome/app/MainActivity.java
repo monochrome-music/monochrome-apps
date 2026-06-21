@@ -46,14 +46,20 @@ public class MainActivity extends BridgeActivity {
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                     Uri url = request.getUrl();
-                    String host = url.getHost();
-                    if (host != null && isOAuthDomain(host) && !host.endsWith(".monochrome.tf") && !host.equals("monochrome.tf")) {
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, url);
-                        browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        view.getContext().startActivity(browserIntent);
+                    if (shouldOpenExternally(view, url)) {
                         return true;
                     }
                     return originalClient.shouldOverrideUrlLoading(view, request);
+                }
+
+                @Override
+                @SuppressWarnings("deprecation")
+                public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                    Uri uri = Uri.parse(url);
+                    if (shouldOpenExternally(view, uri)) {
+                        return true;
+                    }
+                    return originalClient.shouldOverrideUrlLoading(view, url);
                 }
 
                 @Override
@@ -74,6 +80,17 @@ public class MainActivity extends BridgeActivity {
                 @Override
                 public void onReceivedHttpError(WebView view, WebResourceRequest request, android.webkit.WebResourceResponse errorResponse) {
                     originalClient.onReceivedHttpError(view, request, errorResponse);
+                }
+
+                private boolean shouldOpenExternally(WebView view, Uri url) {
+                    String host = url.getHost();
+                    if (host != null && isOAuthDomain(host) && !host.endsWith(".monochrome.tf") && !host.equals("monochrome.tf")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, url);
+                        browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        view.getContext().startActivity(browserIntent);
+                        return true;
+                    }
+                    return false;
                 }
             });
         }
