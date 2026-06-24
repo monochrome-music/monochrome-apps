@@ -18,28 +18,29 @@ jobs:
       - name: Install dependencies
         run: bun install
 
+      - name: Build Web Project
+        run: bun run build
+
       - name: Sync Capacitor
         run: |
           mkdir -p ios/App/App/public
           bunx cap sync ios
 
-      - name: Build unsigned archive
+      - name: Build Unsigned App Binary
         run: |
-          xcodebuild archive \
-            -project ios/App/App.xcodeproj \
+          xcodebuild -project ios/App/App.xcodeproj \
             -scheme App \
             -configuration Release \
-            -destination generic/platform=iOS \
-            -archivePath "$RUNNER_TEMP/Monochrome.xcarchive" \
+            -destination "generic/platform=iOS" \
+            -derivedDataPath build \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO \
-            SKIP_INSTALL=NO
+            CODE_SIGNING_ALLOWED=NO
 
       - name: Package IPA
         run: |
           mkdir Payload
-          cp -r "$RUNNER_TEMP/Monochrome.xcarchive/Products/Applications/App.app" Payload/
+          cp -r build/Build/Products/Release-iphoneos/App.app Payload/
           zip -r Monochrome-unsigned.ipa Payload/
 
       - uses: actions/upload-artifact@v4
