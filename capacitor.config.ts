@@ -5,9 +5,9 @@ const config: CapacitorConfig = {
   appName: 'Monochrome',
   webDir: 'www',
   server: {
-    url: 'https://monochrome.tf',
+    url: 'https://monochrome.st',
     allowNavigation: [
-      '*.monochrome.tf',
+      '*.monochrome.st',
       'discord.com',
       '*.discord.com',
       'github.com',

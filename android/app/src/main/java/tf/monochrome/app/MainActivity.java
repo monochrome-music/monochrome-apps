@@ -205,7 +205,7 @@ public class MainActivity extends BridgeActivity {
 
                 private boolean shouldOpenExternally(WebView v, Uri u) {
                     String h = u.getHost();
-                    if (h != null && isOAuthDomain(h) && !h.endsWith(".monochrome.tf") && !h.equals("monochrome.tf")) {
+                    if (h != null && isOAuthDomain(h) && !h.endsWith(".monochrome.st") && !h.equals("monochrome.st")) {
                         Intent i = new Intent(Intent.ACTION_VIEW, u);
                         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         v.getContext().startActivity(i);
@@ -545,15 +545,15 @@ public class MainActivity extends BridgeActivity {
     }
 
     private static boolean isOAuthDomain(String h) {
-        return h.endsWith(".monochrome.tf")
-            || h.equals("monochrome.tf")
+        return h.endsWith(".monochrome.st")
+            || h.equals("monochrome.st")
             || h.equals("accounts.google.com")
             || h.endsWith(".google.com")
             || h.equals("discord.com")
             || h.endsWith(".discord.com")
             || h.equals("github.com")
             || h.endsWith(".github.com")
-            || h.equals("auth.monochrome.tf");
+            || h.equals("auth.monochrome.st");
     }
 
     @Override
@@ -562,7 +562,7 @@ public class MainActivity extends BridgeActivity {
 
         if (intent != null && Intent.ACTION_VIEW.equals(intent.getAction())) {
             Uri data = intent.getData();
-            if (data != null && "monochrome.tf".equals(data.getHost())) {
+            if (data != null && "monochrome.st".equals(data.getHost())) {
                 String url = data.toString();
                 try {
                     com.getcapacitor.Bridge b = bridge;
